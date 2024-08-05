@@ -6,6 +6,9 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "goar-components",
   description: "goar-components Documentation",
+  appearance: false,
+  lastUpdated: true,
+
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/img/goar-components_logo_01.jpg',
@@ -14,14 +17,15 @@ export default defineConfig({
       { text: 'Examples', link: '/markdown-examples' },
       { text: 'GToast Test', link: '/gtoast'}
     ],
+  
 
     sidebar: [
       {        
         text: 'Documentation',
         items: [
-          { text: 'Introduction', link: '/markdown-examples' },
-          { text: 'Installation', link: '/api-examples' },
-          { text: 'GSelect', link: '/api-examples' },
+          { text: 'Introduction', link: '/' },
+          { text: 'Installation', link: '/installation' },
+          { text: 'GSelect', link: '/gselect' },
 
           { text: 'GTable', link: '/gtable' },
           { text: 'GToast', link: '/gtoast' },
@@ -31,10 +35,10 @@ export default defineConfig({
       {        
         text: 'Examples',
         items: [
-          { text: 'GSelect', link: '/api-examples' },
+          { text: 'GSelect', link: '/gselect-examples' },
 
-          { text: 'GTable', link: '/api-examples' },
-          { text: 'GToast', link: '/gtoast' },
+          { text: 'GTable', link: '/gtable-examples' },
+          { text: 'GToast', link: '/gtoast-examples' },
           
         ]
       },
