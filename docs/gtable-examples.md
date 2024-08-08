@@ -1,42 +1,31 @@
 # GTable Examples
 
-## Basic Example
+  <!-- <BaseButton> Click me </BaseButton>
+-->
 
-  <GTable
-    :headers="headers"
-    :items="items"
-    :pagination="true"
-    :items-per-page="10"/>
+<GTableExample01></GTableExample01>
+
+<!-- <ExampleGToast /> -->
+
+<script setup>
+//import ExampleGToast from './.vitepress/components/ExampleGToast.vue';
+
+//import { BaseButton }from 'gcomp';
 
 
+/*import { onMounted } from 'vue'
+/*
+onMounted(() => {
+  import('./lib-that-access-window-on-import').then((module) => {
+    // use code
+  })
+})
+*/
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import { GTable } from 'goar-components';
-import type { GTableHeader } from 'goar-components';
+import { defineClientComponent } from 'vitepress'
 
-const headers = ref<GTableHeader[]>([
-   { title: 'Select', type: 'checkbox', field: 'id' },
-  { title: 'Name', field: 'name' },
-  { title: 'Email', field: 'email' }
-]);
-
-const items = ref([
-  { id: 1, name: 'John Doe', email: 'john@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-  { id: 3, name: 'John Doe', email: 'john@example.com' },
-  { id: 4, name: 'Jane Smith', email: 'jane@example.com' },
-  { id: 5, name: 'John Doe', email: 'john@example.com' },
-  { id: 6, name: 'Jane Smith', email: 'jane@example.com' },
-  { id: 7, name: 'John Doe', email: 'john@example.com' },
-  { id: 8, name: 'Jane Smith', email: 'jane@example.com' },
-  { id: 9, name: 'John Doe', email: 'john@example.com' },
-  { id: 10, name: 'Jane Smith', email: 'jane@example.com' },
-  { id: 11, name: 'John Doe', email: 'john@example.com' },
-  { id: 12, name: 'Jane Smith', email: 'jane@example.com' }
-
-]);
+const GTableExample01 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample01.vue')
+})
 
 </script>
-
-

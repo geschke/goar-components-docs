@@ -5,7 +5,7 @@
   "scripts": {
     "docs:dev": "vitepress dev docs --host 192.168.10.101",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs --config vite.config.ts"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

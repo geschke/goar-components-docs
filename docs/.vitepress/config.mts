@@ -36,7 +36,6 @@ export default defineConfig({
         text: 'Examples',
         items: [
           { text: 'GSelect', link: '/gselect-examples' },
-
           { text: 'GTable', link: '/gtable-examples' },
           { text: 'GToast', link: '/gtoast-examples' },
           

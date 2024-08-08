@@ -1,8 +1,8 @@
 <template>
-  <div><!--
+  <div>
     <button @click="showToast" class="btn btn-primary">Show Toast</button>
     <GToast ref="toast" />
-  -->
+  
 <!--    <h2>Toast component Test</h2>
 
     <button type="button" @click="toastTest" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
@@ -23,13 +23,13 @@
 
 -->
 
-<BToast></BToast>
+<!-- <BToast></BToast> -->
 
   </div>
 </template>
 
 <script setup lang="ts">
-import { BToast } from 'goar-components';
+//import { BToast } from 'goar-components';
 
 /*import { Toast } from 'bootstrap';
 
@@ -44,7 +44,7 @@ const toastLiveExample = document.getElementById('liveToast')
 
 }
 */
-/*
+
 import { ref } from 'vue';
 import { GToast, GToastSuccess } from 'goar-components';
 
@@ -60,5 +60,5 @@ function showToast() {
     animation: true,
   });
 }
-  */
+  
 </script>

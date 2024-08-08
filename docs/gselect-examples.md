@@ -1,7 +1,7 @@
 # GSelect Examples
 
-
-<GSelectExample01 />
+Test Gselect Examples
+ <GSelectExample01 /> 
 
 <script setup>
 //import ExampleGToast from './.vitepress/components/ExampleGToast.vue';
@@ -14,6 +14,7 @@ onMounted(() => {
   })
 })
 */
+
 import { defineClientComponent } from 'vitepress'
 
 const GSelectExample01 = defineClientComponent(() => {
