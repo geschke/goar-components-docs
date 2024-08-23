@@ -1,58 +1,45 @@
 <template>
   <div>
-    <button @click="showToast" class="btn btn-primary">Show Toast</button>
-    <GToast ref="toast" />
+
+    <label class="form-label" for="placement-select">Choose a placement:</label>
+
+<select class="form-select" v-model="placement" name="placement" id="placement-select">
+  <option selected value="bottom-0 end-0">default (Bottom right)</option>
+  <option value="top-0 start-0">Top left</option>
+  <option value="top-0 start-50 translate-middle-x">Top center</option>
+  <option value="top-0 end-0">Top right</option>
+  <option value="top-50 start-0 translate-middle-y">Middle left</option>
+  <option value="top-50 start-50 translate-middle">Middle center</option>
+  <option value="top-50 end-0 translate-middle-y">Middle right</option>
+  <option value="bottom-0 start-0">Bottom left</option>
+  <option value="bottom-0 start-50 translate-middle-x">Bottom center</option>
   
-<!--    <h2>Toast component Test</h2>
+</select>
 
-    <button type="button" @click="toastTest" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-     
-      <strong class="me-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      Hello, world! This is a toast message.
-    </div>
-  </div>
-</div>
 
--->
+<button @click="showToast(GToastSuccess)" class="btn btn-primary">Show Success Toast</button>
+<button @click="showToast(GToastInfo)" class="btn btn-primary">Show Info Toast</button>
 
-<!-- <BToast></BToast> -->
+
+    <GToast :placement="placement" ref="toast" />
+  
 
   </div>
 </template>
 
 <script setup lang="ts">
-//import { BToast } from 'goar-components';
-
-/*import { Toast } from 'bootstrap';
-
-function toastTest() {
-  console.log("in toastTest");
-const toastLiveExample = document.getElementById('liveToast')
-
-  const toastBootstrap = Toast.getOrCreateInstance(toastLiveExample)
-
-    toastBootstrap.show()
-  
-
-}
-*/
 
 import { ref } from 'vue';
-import { GToast, GToastSuccess } from 'goar-components';
+import type GToastContent from 'goar-components';
+import { GToast, GToastSuccess, GToastInfo } from 'goar-components';
 
 const toast = ref();
+const placement = ref("bottom-0 end-0");
 
-function showToast() {
+function showToast(toastType ) {
   toast.value.addToast({
-    ...GToastSuccess,
+    ...toastType,
     title: "Success!",
     content: "This is a success message.",
     delay: 5000,
@@ -60,5 +47,7 @@ function showToast() {
     animation: true,
   });
 }
-  
+
+
+
 </script>

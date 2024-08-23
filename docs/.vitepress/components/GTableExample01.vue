@@ -21,6 +21,7 @@ import type { GTableHeader } from 'goar-components';
 
 const headers = ref<GTableHeader[]>([
    { title: 'Select', type: 'checkbox', field: 'id' },
+   { title: "ID", field: "id"},
   { title: 'Name', field: 'name' },
   { title: 'Email', field: 'email' }
 ]);

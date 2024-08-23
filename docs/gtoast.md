@@ -36,7 +36,7 @@ toastRef.value.addToast({
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `placement` | string | 'bottom-0 end-0' | Position of the toast container |
+| `placement` | string | 'bottom-0 end-0' | Position of the toast container, just use placement classes from Bootstrap |
 | `maxNumber` | number | 5 | Maximum number of toasts to display (0 disables the limit) |
 
 ## Methods

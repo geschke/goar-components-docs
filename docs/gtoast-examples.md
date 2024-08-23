@@ -28,4 +28,5 @@ const GToastExample01 = defineClientComponent(() => {
   return import('./.vitepress/components/GToastExample01.vue')
 })
 
+
 </script>

@@ -1,9 +1,9 @@
 
-## GTable
+# GTable
 
 GTable is a flexible and feature-rich data table component for Vue.js applications.
 
-### Features
+## Features
 
 - TypeScript support
 - Customizable table layout with CSS classes
@@ -13,7 +13,7 @@ GTable is a flexible and feature-rich data table component for Vue.js applicatio
 - Pagination
 - Custom cell rendering
 
-### Usage
+## Usage
 
 ```vue
 <template>
@@ -53,7 +53,7 @@ const handleExpandEvent = (payload: any) => {
 </script>
 ```
 
-### Props
+## Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -74,17 +74,17 @@ const handleExpandEvent = (payload: any) => {
 | `paginationAlignment` | string | 'justify-content-end' | CSS class for pagination alignment |
 | `paginationSize` | string | '' | CSS class for pagination size |
 
-### Slots
+## Slots
 
 - Dynamic slots for each column, named after the `field` property in the header object
 - `expandable` slot for custom expandable row content
 
-### Events
+## Events
 
 - `checkEvent`: Emitted when a checkbox is clicked. The event payload includes the item and its new status.
 - `expandEvent`: Emitted when a row is expanded or collapsed. The event payload includes the row index and its expanded status.
 
-### Types
+## Types
 
 The component exports the following TypeScript type:
 
