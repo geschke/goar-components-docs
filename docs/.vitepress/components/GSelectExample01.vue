@@ -1,7 +1,6 @@
 <template>
-  <div>
-
-
+  <div class="row">
+<div class="col-12">
     <form>
       <div class="row mb-3">
         <label for="inputRole" class="col-sm-2 col-form-label">Rolle</label>
@@ -17,6 +16,7 @@
 
 
   </div>
+  </div>
 </template>
 
 
@@ -30,6 +30,7 @@ const options = ref<Array<{ key: string; value: string }>>([
   { key: '1', value: 'Option 1' },
   { key: '2', value: 'Option 2' },
   { key: '3', value: 'Option 3' },
-  { key: '4', value: 'Option 4' }
+  { key: '4', value: 'Option 4' },
+  { key: '5', value: 'Option 5' }
 ]);
 </script>

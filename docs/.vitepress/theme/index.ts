@@ -1,12 +1,19 @@
-import DefaultTheme from 'vitepress/theme';
+//import DefaultTheme from 'vitepress/theme';
+import Layout from './Layout.vue'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import './icons.css';
+import './custom.css';
+
+
 import type { Theme } from 'vitepress'
 //import { GoarComponents } from 'goar-components';
 import { App } from 'vue';
 
 
 export default {
-  ...DefaultTheme,
+  //...DefaultTheme,
+  Layout,
   /*async enhanceApp({ app }: {app: App}) {
     if (!import.meta.env.SSR) {
       const GoarComponents = await import('goar-components')

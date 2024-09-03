@@ -54,7 +54,13 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/geschke/goar-components' },
       { icon: 'twitter', link: 'https://x.com/geschke' }
-    ]
+    ],
+    
+  },
+  markdown: {
+    
+    theme: 'github-light',
+    lineNumbers: false 
   },
   vite: {
     ssr: {
@@ -73,3 +79,4 @@ export default defineConfig({
     //}
   }
 })
+

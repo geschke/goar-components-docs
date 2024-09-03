@@ -1,12 +1,15 @@
 <template>
-  <div>
-
+  <div class="row">
+<div col="12">
     <GTable
     :headers="headers"
     :items="items"
     :pagination="true"
-    :items-per-page="5"/>
+    :items-per-page="5"
+    classes="table-striped table-hover" 
+    />
 
+    </div>
   </div>
 </template>
 
@@ -43,5 +46,4 @@ const items = ref([
 ]);
 
 </script>
-
 
