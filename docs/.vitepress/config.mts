@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress'
+import markdownItRegex from 'markdown-it-regex'
+
 //import { resolve } from 'path';
 //import vue from '@vitejs/plugin-vue'
 
@@ -60,7 +62,35 @@ export default defineConfig({
   markdown: {
     
     theme: 'github-light',
-    lineNumbers: false 
+    lineNumbers: true,
+
+    // does not work, todo later! but something works, like replacing "table" without any < chars
+    config(md) {
+      md.use(markdownItRegex.default, {
+        name: 'bs-table',
+        regex: /<table>/,
+        replace: (match) => {
+          return `<table class="table table-striped>"`
+        }
+      })
+    }
+    /*config(md) {
+      md.renderer.rules.emoji = function (token, idx) {
+        return `<i class="e1a-${token[idx].markup}"></i>`
+      }
+    }*/
+    /*config: (md) => {
+
+      md.use(markdownItRegex, {
+        // Suche nach öffnendem <table> Tag ohne Klassen
+        regex: /<table>/g,
+        replace: () => {
+          // Ersetze es mit <table class="table table-striped">
+          return '<table class="table table-striped">'
+        }
+      })
+    }*/
+    
   },
   vite: {
     ssr: {

@@ -2,6 +2,7 @@
 import Layout from './Layout.vue'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import './styles/components/custom-block.css'
 import './icons.css';
 import './custom.css';
 

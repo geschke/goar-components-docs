@@ -61,10 +61,8 @@ function getBootstrapIconClass(icon: string) {
 function isActive(link: string) {
   const currentPath = route.path.replace(/\.html$/, '')
 
-  console.log("in isActive");
-  console.log(currentPath)
-  console.log(link)
-  return currentPath === link ? 'active' : ''
+  
+  return currentPath === link ? 'underline' : ''
 }
 
 </script>

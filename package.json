@@ -12,6 +12,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "goar-components": "file:../goar-components",
+    "markdown-it-regex": "^0.2.0",
     "vue": "^3.4.35"
   }
 }

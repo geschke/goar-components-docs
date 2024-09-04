@@ -33,8 +33,8 @@ import { GTable } from 'goar-components';
 import type { GTableHeader } from 'goar-components';
 
 const headers = ref<GTableHeader[]>([
-  { title: 'Name', field: 'name' },
-  { title: 'Email', field: 'email' },
+  { title: 'Name', field: 'name' }, 
+  { title: 'Email', field: 'email' }, // [!code highlight]
   { title: 'Select', type: 'checkbox', field: 'id' }
 ]);
 
