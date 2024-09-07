@@ -62,17 +62,35 @@ export default defineConfig({
   markdown: {
     
     theme: 'github-light',
-    lineNumbers: true,
+    //lineNumbers: true,
 
     // does not work, todo later! but something works, like replacing "table" without any < chars
     config(md) {
-      md.use(markdownItRegex.default, {
-        name: 'bs-table',
-        regex: /<table>/,
+
+      /*const defaultBulletListOpenRenderer = md.renderer.rules.bullet_list_open
+      md.renderer.rules.bullet_list_open = function(tokens, idx, options, env, self) {
+        // Make your changes here ...
+        // ... then render it using the existing logic
+        tokens[idx].attrJoin("class", "lorem_ipsum")
+        return defaultBulletListOpenRenderer(tokens, idx, options, env, self)
+     };*/
+     md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
+      return '<table class="table table-striped" tabindex="0">\n'
+    }
+  
+
+      //console.log(Object.keys(md.renderer.rules.table_open))
+      ///md.use(markdownItRegex.default, {
+        /*regex: /<h1\s/g,
         replace: (match) => {
-          return `<table class="table table-striped>"`
-        }
-      })
+          return `<h6 `
+        }*/
+        /*name: 'bs-table',
+        regex: /<table tabindex=\"0\">/g,
+        replace: (match) => {
+          return `<table class="table table-striped">`
+        }*/
+      ///})
     }
     /*config(md) {
       md.renderer.rules.emoji = function (token, idx) {

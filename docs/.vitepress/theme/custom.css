@@ -18,7 +18,7 @@
   --vp-code-lang-color: var(--bs-gray-900);
 
   --vp-code-line-highlight-color: var(--bs-gray-400);
-  --vp-code-line-number-color: var(--vp-c-text-3);
+  --vp-code-line-number-color: var(--bs-gray-900);
 
   --vp-code-line-diff-add-color: var(--bs-success-bg-subtle);
   --vp-code-line-diff-add-symbol-color: var(--bs-success);
@@ -55,39 +55,40 @@
   --vp-custom-block-code-font-size: 13px;
 
   --vp-custom-block-info-border: transparent;
-  --vp-custom-block-info-text: var(--bs-danger);
-  --vp-custom-block-info-bg: var(--bs-danger);
-  --vp-custom-block-info-code-bg: var(--bs-danger);
+  --vp-custom-block-info-text: var(--bs-info-text-emphasis);
+  --vp-custom-block-info-bg: var(--bs-info-bg-subtle);
+  --vp-custom-block-info-code-bg: var(--bs-info-bg-subtle);
+
 
   --vp-custom-block-note-border: transparent;
-  --vp-custom-block-note-text: var(--vp-c-text-1);
-  --vp-custom-block-note-bg: var(--vp-c-default-soft);
-  --vp-custom-block-note-code-bg: var(--vp-c-default-soft);
+  --vp-custom-block-note-text: var(--bs-secondary-text-emphasis);
+  --vp-custom-block-note-bg: var(--bs-secondary-bg-subtle);
+  --vp-custom-block-note-code-bg: var(--bs-secondary-bg-subtle);
 
   --vp-custom-block-tip-border: transparent;
-  --vp-custom-block-tip-text: var(--vp-c-text-1);
-  --vp-custom-block-tip-bg: var(--vp-c-tip-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
+  --vp-custom-block-tip-text: var(--bs-success-text-emphasis);
+  --vp-custom-block-tip-bg: var(--bs-success-bg-subtle);
+  --vp-custom-block-tip-code-bg: var(--bs-success-bg-subtle);
 
   --vp-custom-block-important-border: transparent;
-  --vp-custom-block-important-text: var(--vp-c-text-1);
-  --vp-custom-block-important-bg: var(--vp-c-important-soft);
-  --vp-custom-block-important-code-bg: var(--vp-c-important-soft);
+  --vp-custom-block-important-text: var(--bs-info-text-emphasis);
+  --vp-custom-block-important-bg: var(--bs-info-bg-subtle);
+  --vp-custom-block-important-code-bg: var(--bs-info-bg-subtle);
 
   --vp-custom-block-warning-border: transparent;
-  --vp-custom-block-warning-text: var(--vp-c-text-1);
-  --vp-custom-block-warning-bg: var(--vp-c-warning-soft);
-  --vp-custom-block-warning-code-bg: var(--vp-c-warning-soft);
+  --vp-custom-block-warning-text: var(--bs-warning-text-emphasis);
+  --vp-custom-block-warning-bg: var(--bs-warning-bg-subtle );
+  --vp-custom-block-warning-code-bg: var(--bs-warning-bg-subtle);
 
   --vp-custom-block-danger-border: transparent;
-  --vp-custom-block-danger-text: var(--vp-c-text-1);
-  --vp-custom-block-danger-bg: var(--vp-c-danger-soft);
-  --vp-custom-block-danger-code-bg: var(--vp-c-danger-soft);
+  --vp-custom-block-danger-text: var(--bs-danger-text-emphasis);
+  --vp-custom-block-danger-bg: var(--bs-danger-bg-subtle);
+  --vp-custom-block-danger-code-bg: var(--danger-bg-subtle);
 
   --vp-custom-block-caution-border: transparent;
-  --vp-custom-block-caution-text: var(--vp-c-text-1);
-  --vp-custom-block-caution-bg: var(--vp-c-caution-soft);
-  --vp-custom-block-caution-code-bg: var(--vp-c-caution-soft);
+  --vp-custom-block-caution-text: var(--bs-danger-text-emphasis);
+  --vp-custom-block-caution-bg: var(--bs-danger-bg-subtle);
+  --vp-custom-block-caution-code-bg: var(--bs-danger-bg-subtle);
 
   --vp-custom-block-details-border: var(--vp-custom-block-info-border);
   --vp-custom-block-details-text: var(--vp-custom-block-info-text);
