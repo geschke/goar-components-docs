@@ -17,12 +17,12 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Examples', link: '/markdown-examples' },
-      { text: 'GToast Test', link: '/gtoast'}
+      { text: 'GToast Test', link: '/gtoast' }
     ],
-  
+
 
     sidebar: [
-      {        
+      {
         text: 'Documentation',
         items: [
           { text: 'Introduction', link: '/' },
@@ -31,20 +31,20 @@ export default defineConfig({
 
           { text: 'GTable', link: '/gtable' },
           { text: 'GToast', link: '/gtoast' },
-          
+
         ]
       },
-      {        
+      {
         text: 'Examples',
         items: [
           { text: 'GSelect', link: '/gselect-examples' },
           { text: 'GTable', link: '/gtable-examples' },
           { text: 'GToast', link: '/gtoast-examples' },
-          
+
         ]
       },
 
-      {        
+      {
         text: 'temp',
         items: [
           { text: 'Markdown Examples', link: '/markdown-examples' },
@@ -57,10 +57,10 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/geschke/goar-components' },
       { icon: 'twitter', link: 'https://x.com/geschke' }
     ],
-    
+
   },
   markdown: {
-    
+
     theme: 'github-light',
     //lineNumbers: true,
 
@@ -74,22 +74,22 @@ export default defineConfig({
         tokens[idx].attrJoin("class", "lorem_ipsum")
         return defaultBulletListOpenRenderer(tokens, idx, options, env, self)
      };*/
-     md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
-      return '<table class="table table-striped" tabindex="0">\n'
-    }
-  
+      md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
+        return '<table class="table table-striped" tabindex="0">\n'
+      }
+
 
       //console.log(Object.keys(md.renderer.rules.table_open))
       ///md.use(markdownItRegex.default, {
-        /*regex: /<h1\s/g,
-        replace: (match) => {
-          return `<h6 `
-        }*/
-        /*name: 'bs-table',
-        regex: /<table tabindex=\"0\">/g,
-        replace: (match) => {
-          return `<table class="table table-striped">`
-        }*/
+      /*regex: /<h1\s/g,
+      replace: (match) => {
+        return `<h6 `
+      }*/
+      /*name: 'bs-table',
+      regex: /<table tabindex=\"0\">/g,
+      replace: (match) => {
+        return `<table class="table table-striped">`
+      }*/
       ///})
     }
     /*config(md) {
@@ -108,7 +108,7 @@ export default defineConfig({
         }
       })
     }*/
-    
+
   },
   vite: {
     ssr: {
