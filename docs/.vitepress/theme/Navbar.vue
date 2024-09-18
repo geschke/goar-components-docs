@@ -21,7 +21,7 @@
           <li class="nav-item" v-for="link in navLinks" :key="link.text">
             <a
               :class="['nav-link', isActive(link.link)]"
-              :href="link.link"
+              :href="normalizeLink(link.link)"
             >
             {{ link.text }}</a>
           </li>
@@ -40,6 +40,7 @@
 
 <script setup lang="ts">
 import { useData, useRoute } from 'vitepress'
+import { normalizeLink } from './support/utils'
 
 const { site, theme } = useData()
 const navLinks = theme.value.nav

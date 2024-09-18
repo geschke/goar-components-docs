@@ -5,7 +5,7 @@
         <h5 class="nav-link">{{ group.text }}</h5>
         <ul class="nav flex-column ms-3">
           <li v-for="item in group.items" :key="item.link" class="nav-item">
-            <a :href="item.link" 
+            <a :href="normalizeLink(item.link)" 
             :class="['nav-link', isActive(item.link)]">{{ item.text }}</a>
           </li>
         </ul>
@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { useData, useRoute } from 'vitepress'
+import { normalizeLink } from './support/utils'
 
 const { theme } = useData()
 const sidebar = theme.value.sidebar  // Zugriff auf die Sidebar-Daten aus der config.mts
