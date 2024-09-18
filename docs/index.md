@@ -25,6 +25,8 @@
 
 # goar-components
 
+## THIS IS A TEST ONLY! PLEASE BE PATIENT FOR FINAL PUBLISHED VERSION!
+
 ## Introduction
 
 Welcome to `goar-components`, a small Vue.js component library that originated from practical needs in a larger project.
