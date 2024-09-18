@@ -14,7 +14,7 @@ export default defineConfig({
 
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/img/goar-components_logo_01.jpg',
+    logo: '/goar-components-docs/img/goar-components_logo_01.jpg',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Examples', link: '/markdown-examples' },
