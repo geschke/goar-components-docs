@@ -10,6 +10,7 @@ export default defineConfig({
   description: "goar-components Documentation",
   appearance: false,
   lastUpdated: true,
+  base: "/goar-components-docs/",
 
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
