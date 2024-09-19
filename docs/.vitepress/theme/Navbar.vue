@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="/">
+      <a class="navbar-brand d-flex align-items-center" :href="normalizeLink('/')">
         <img :src="logo" alt="Logo" class="me-2" style="height: 40px;" />
         {{ siteTitle }}
       </a>
