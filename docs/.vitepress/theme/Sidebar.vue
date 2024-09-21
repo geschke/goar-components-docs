@@ -19,13 +19,16 @@ import { useData, useRoute } from 'vitepress'
 import { normalizeLink } from './support/utils'
 
 const { theme } = useData()
-const sidebar = theme.value.sidebar  // Zugriff auf die Sidebar-Daten aus der config.mts
+const sidebar = theme.value.sidebar 
 const route = useRoute()
 
 function isActive(link: string) {
-  const currentPath = route.path.replace(/\.html$/, '')
+  //const currentPath = route.path.replace(/\.html$/, '')
+  //console.log("curentPath: ",currentPath, " link: ", normalizeLink(link))
 
-  return currentPath === link ? 'active' : ''
+  //return currentPath === link ? 'active' : ''
+  return route.path === normalizeLink(link) ? 'active' : ''
+  
 }
 
 
