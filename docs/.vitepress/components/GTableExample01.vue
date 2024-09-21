@@ -1,21 +1,12 @@
 <template>
   <div class="row">
-<div col="12">
-    <GTable
-    :headers="headers"
-    :items="items"
-    :pagination="true"
-    :items-per-page="5"
-    classes="table-striped table-hover" 
-    />
+    <div col="12">
+      <GTable :headers="headers" :items="items" :pagination="true" :items-per-page="5"
+        classes="table-striped table-hover" />
 
     </div>
   </div>
 </template>
-
-
-
-
 
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -23,8 +14,8 @@ import { GTable } from 'goar-components';
 import type { GTableHeader } from 'goar-components';
 
 const headers = ref<GTableHeader[]>([
-   { title: 'Select', type: 'checkbox', field: 'id' },
-   { title: "ID", field: "id"},
+  { title: 'Select', type: 'checkbox', field: 'id' },
+  { title: "ID", field: "id" },
   { title: 'Name', field: 'name' },
   { title: 'Email', field: 'email' }
 ]);
@@ -46,4 +37,3 @@ const items = ref([
 ]);
 
 </script>
-

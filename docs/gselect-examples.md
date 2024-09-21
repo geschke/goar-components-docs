@@ -1,10 +1,14 @@
-# GSelect Examples
+# GSelect Example
 
-Test Gselect Examples
+
 ::: raw
-
  <GSelectExample01 /> 
 :::
+
+
+## Code snippet
+
+<<< @/.vitepress/components/GSelectExample01.vue
 
 <script setup>
 //import ExampleGToast from './.vitepress/components/ExampleGToast.vue';

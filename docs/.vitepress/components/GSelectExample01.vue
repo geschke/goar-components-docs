@@ -1,25 +1,21 @@
 <template>
   <div class="row">
-<div class="col-12">
-    <form>
-      <div class="row mb-3">
-        <label for="inputRole" class="col-sm-2 col-form-label">Rolle</label>
-        <div class="col-sm-5">
-          <GSelect v-model="selectedValue" :options="options" name="basicSelect" :height="150" />
+    <div class="col-12">
+      <form>
+        <div class="row mb-3">
+          <label for="basicSelect" class="col-sm-2 col-form-label">Please select:</label>
+          <div class="col-sm-5">
+            <GSelect v-model="selectedValue" :options="options" name="basicSelect" :height="150" />
 
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
 
+      <p>Selected Value: {{ selectedValue }}</p>
 
-    <p>Selected Value: {{ selectedValue }}</p>
-
-
-  </div>
+    </div>
   </div>
 </template>
-
-
 
 <script setup lang="ts">
 import { ref } from 'vue';
