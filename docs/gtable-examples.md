@@ -7,16 +7,39 @@
 
 <GTableExample01></GTableExample01>
 
-## Code snippet
+### Code snippet
 
 
-<<< @/.vitepress/components/GTableExample01.vue
+<<< @/.vitepress/components/GTableExample01.vue{4-5,13-21}
 
-## Render function
+## Use render function to create column content
 
 <GTableExample02/>
 
-<<< @/.vitepress/components/GTableExample02.vue
+### Code snippet
+
+
+<<< @/.vitepress/components/GTableExample02.vue{19-26}
+
+
+## Use slots to pass template fragment to build column content
+
+<GTableExample03/>
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample03.vue{7-17,56}
+
+
+
+## Use slots to show/modify loading and empty status
+
+<GTableExample04/>
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample04.vue{6-21,46,48}
+
 
 <!-- <ExampleGToast /> -->
 
@@ -44,6 +67,15 @@ const GTableExample01 = defineClientComponent(() => {
 const GTableExample02 = defineClientComponent(() => {
   return import('./.vitepress/components/GTableExample02.vue')
 })
+
+const GTableExample03 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample03.vue')
+})
+
+const GTableExample04 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample04.vue')
+})
+
 
 
 </script>
