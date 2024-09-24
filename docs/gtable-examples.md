@@ -10,25 +10,25 @@
 ### Code snippet
 
 
-<<< @/.vitepress/components/GTableExample01.vue{4-5,13-21}
+<<< @/.vitepress/components/GTableExample01.vue{4-5,13-20}
 
-## Use render function to create column content
+## Use render function to create cell content
 
 <GTableExample02/>
 
 ### Code snippet
 
 
-<<< @/.vitepress/components/GTableExample02.vue{19-26}
+<<< @/.vitepress/components/GTableExample02.vue{19-25}
 
 
-## Use slots to pass template fragment to build column content
+## Use slots to pass template fragment to build cell content
 
 <GTableExample03/>
 
 ### Code snippet
 
-<<< @/.vitepress/components/GTableExample03.vue{7-17,56}
+<<< @/.vitepress/components/GTableExample03.vue{7-17,55}
 
 
 
@@ -38,7 +38,41 @@
 
 ### Code snippet
 
-<<< @/.vitepress/components/GTableExample04.vue{6-21,46,48}
+<<< @/.vitepress/components/GTableExample04.vue{6-21,45,47}
+
+
+
+
+## Checkbox styles
+
+<GTableExample05/>
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample05.vue
+
+
+## Preset checkbox cells with callback function
+
+<GTableExample06/>
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample06.vue
+
+
+
+## Get checkbox state change by event
+
+<GTableExample07/>
+
+Every time the state of a checkbox changes, an event is triggered and passed to the parent component. If multiple checkboxes in the table rows are changed by the checkbox in the table header, multiple events will be triggered, i.e. one event for each changed row state.
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample07.vue
+
+
 
 
 <!-- <ExampleGToast /> -->
@@ -76,6 +110,16 @@ const GTableExample04 = defineClientComponent(() => {
   return import('./.vitepress/components/GTableExample04.vue')
 })
 
+const GTableExample05 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample05.vue')
+})
 
+const GTableExample06 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample06.vue')
+})
+
+const GTableExample07 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample07.vue')
+})
 
 </script>

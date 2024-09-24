@@ -50,7 +50,6 @@ import { Modal } from 'bootstrap';
 
 
 const headers = ref<GTableHeader[]>([
-  { title: 'Select', type: 'checkbox', field: 'id' },
   { title: "ID", field: "id" },
   { title: 'Name', field: 'name' },
   { title: 'Actions', field: 'tmplUserActions' }
