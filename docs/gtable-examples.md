@@ -49,7 +49,7 @@
 
 ### Code snippet
 
-<<< @/.vitepress/components/GTableExample05.vue
+<<< @/.vitepress/components/GTableExample05.vue{26-31,33-38}
 
 
 ## Preset checkbox cells with callback function
@@ -58,7 +58,7 @@
 
 ### Code snippet
 
-<<< @/.vitepress/components/GTableExample06.vue
+<<< @/.vitepress/components/GTableExample06.vue{20-22,34-37}
 
 
 
@@ -70,7 +70,28 @@ Every time the state of a checkbox changes, an event is triggered and passed to 
 
 ### Code snippet
 
-<<< @/.vitepress/components/GTableExample07.vue
+<<< @/.vitepress/components/GTableExample07.vue{6,49-52}
+
+
+## Expand table row to display more information
+
+<GTableExample08/>
+
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample08.vue{7-16,30}
+
+
+
+## Expand table row, get data of expanded row by expand event
+
+<GTableExample09/>
+
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample09.vue{7,56-60}
 
 
 
@@ -121,5 +142,14 @@ const GTableExample06 = defineClientComponent(() => {
 const GTableExample07 = defineClientComponent(() => {
   return import('./.vitepress/components/GTableExample07.vue')
 })
+
+const GTableExample08 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample08.vue')
+})
+
+const GTableExample09 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample09.vue')
+})
+
 
 </script>

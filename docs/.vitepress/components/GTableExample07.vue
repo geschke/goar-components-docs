@@ -2,7 +2,8 @@
   <div class="row">
     <div col="12">
       <GTable :headers="headers" :items="items" :pagination="false" :items-per-page="5"
-        classes="table-striped table-hover" checkEvent="myCheckEvent" @myCheckEvent="rightChanged" />
+        classes="table-striped table-hover" 
+        checkEvent="myCheckEvent" @myCheckEvent="rightChanged" />
     </div>
     <div col="12">
       <p>
