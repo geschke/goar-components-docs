@@ -1,9 +1,26 @@
 # GToast Examples
 
-  <!-- <BaseButton> Click me </BaseButton>
--->
+<!--
+## Basic Toast, default placement, type "success"
 
 <GToastExample01></GToastExample01>
+
+### Code snippet
+
+
+<<< @/.vitepress/components/GToastExample01.vue{8,16,18,20-29}
+-->
+
+## Placement example
+
+<GToastExample02></GToastExample02>
+
+### Code snippet
+
+
+<<< @/.vitepress/components/GToastExample02.vue
+
+
 
 <!-- <ExampleGToast /> -->
 
@@ -24,8 +41,12 @@ onMounted(() => {
 
 import { defineClientComponent } from 'vitepress'
 
-const GToastExample01 = defineClientComponent(() => {
-  return import('./.vitepress/components/GToastExample01.vue')
+//const GToastExample01 = defineClientComponent(() => {
+//  return import('./.vitepress/components/GToastExample01.vue')
+//})
+
+const GToastExample02 = defineClientComponent(() => {
+  return import('./.vitepress/components/GToastExample02.vue')
 })
 
 

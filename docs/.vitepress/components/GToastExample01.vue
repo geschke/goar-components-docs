@@ -1,29 +1,11 @@
 <template>
-  <div>
+  <div class="row">
 
-    <label class="form-label" for="placement-select">Choose a placement:</label>
+    <div class="mb-3">
+      <button @click="showToast()" class="btn btn-success">Show Success Toast</button>
+    </div>
 
-<select class="form-select" v-model="placement" name="placement" id="placement-select">
-  <option selected value="bottom-0 end-0">default (Bottom right)</option>
-  <option value="top-0 start-0">Top left</option>
-  <option value="top-0 start-50 translate-middle-x">Top center</option>
-  <option value="top-0 end-0">Top right</option>
-  <option value="top-50 start-0 translate-middle-y">Middle left</option>
-  <option value="top-50 start-50 translate-middle">Middle center</option>
-  <option value="top-50 end-0 translate-middle-y">Middle right</option>
-  <option value="bottom-0 start-0">Bottom left</option>
-  <option value="bottom-0 start-50 translate-middle-x">Bottom center</option>
-  
-</select>
-
-
-
-<button @click="showToast(GToastSuccess)" class="btn btn-primary">Show Success Toast</button>
-<button @click="showToast(GToastInfo)" class="btn btn-primary">Show Info Toast</button>
-
-
-    <GToast :placement="placement" ref="toast" />
-  
+    <GToast ref="toast" />
 
   </div>
 </template>
@@ -31,15 +13,13 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
-import type GToastContent from 'goar-components';
-import { GToast, GToastSuccess, GToastInfo } from 'goar-components';
+import { GToast, GToastSuccess } from 'goar-components';
 
 const toast = ref();
-const placement = ref("bottom-0 end-0");
 
-function showToast(toastType ) {
+function showToast() {
   toast.value.addToast({
-    ...toastType,
+    ...GToastSuccess,
     title: "Success!",
     content: "This is a success message.",
     delay: 5000,
@@ -47,7 +27,5 @@ function showToast(toastType ) {
     animation: true,
   });
 }
-
-
 
 </script>

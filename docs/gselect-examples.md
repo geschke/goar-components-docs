@@ -1,14 +1,15 @@
 # GSelect Example
 
+## Basic select box
 
 ::: raw
  <GSelectExample01 /> 
 :::
 
 
-## Code snippet
+### Code snippet
 
-<<< @/.vitepress/components/GSelectExample01.vue
+<<< @/.vitepress/components/GSelectExample01.vue{8-9,15,23}
 
 <script setup>
 //import ExampleGToast from './.vitepress/components/ExampleGToast.vue';

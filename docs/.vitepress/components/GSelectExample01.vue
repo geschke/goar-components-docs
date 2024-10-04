@@ -5,7 +5,8 @@
         <div class="row mb-3">
           <label for="basicSelect" class="col-sm-2 col-form-label">Please select:</label>
           <div class="col-sm-5">
-            <GSelect v-model="selectedValue" :options="options" name="basicSelect" :height="150" />
+            <GSelect v-model="selectedValue" :options="options" 
+            name="basicSelect" :height="150" />
 
           </div>
         </div>
@@ -22,6 +23,7 @@ import { ref } from 'vue';
 import { GSelect } from 'goar-components';
 
 const selectedValue = ref<string>('');
+
 const options = ref<Array<{ key: string; value: string }>>([
   { key: '1', value: 'Option 1' },
   { key: '2', value: 'Option 2' },

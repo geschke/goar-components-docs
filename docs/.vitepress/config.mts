@@ -17,8 +17,8 @@ export default defineConfig({
     logo: '/goar-components-docs/img/goar-components_logo_01.jpg',
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
-      { text: 'GToast Test', link: '/gtoast' }
+     // { text: 'Examples', link: '/markdown-examples' },
+     // { text: 'GToast Test', link: '/gtoast' }
     ],
 
 
@@ -43,15 +43,15 @@ export default defineConfig({
           { text: 'GToast', link: '/gtoast-examples' },
 
         ]
-      },
-
-      {
-        text: 'temp',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
       }
+
+//      {
+//        text: 'temp',
+//        items: [
+//          { text: 'Markdown Examples', link: '/markdown-examples' },
+//          { text: 'Runtime API Examples', link: '/api-examples' }
+//        ]
+//      }
     ],
 
     socialLinks: [
