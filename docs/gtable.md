@@ -1,30 +1,30 @@
+# GTable Component Documentation
 
-# GTable
+The **GTable** component is part of the `goar-components` library. It is a customizable Vue.js table component designed to display data in a simple and flexible way. This documentation provides guidance on how to use the **GTable** component in your Vue.js application.
 
-GTable is a flexible and feature-rich data table component for Vue.js applications.
+## Table of Contents
 
-## Features
+- [Introduction](#introduction)
+- [Basic Usage](#basic-usage)
+- [Props](#props)
+- [Slots](#slots)
+- [Events](#events)
+- [Interfaces](#interfaces)
+  - [GTableHeader](#gtableheader)
+  - [GTableItem](#gtableitem)
+- [Notes](#notes)
 
-- TypeScript support
-- Customizable table layout with CSS classes
-- Sortable columns
-- Checkbox selection
-- Expandable rows
-- Pagination
-- Custom cell rendering
+## Introduction
 
-## Usage
+The **GTable** component provides a straightforward way to display tabular data in your Vue.js applications. It supports features like pagination, expandable rows, checkboxes, and customizable headers. You can use it in its simplest form to display data without any additional complexity or customize it extensively to suit your needs.
+
+## Basic Usage
+
+To use the **GTable** component, import it from `goar-components` and include it in your template. Here's a minimal example:
 
 ```vue
 <template>
-  <GTable
-    :headers="headers"
-    :items="items"
-    :pagination="true"
-    :items-per-page="10"
-    @check-event="handleCheckEvent"
-    @expand-event="handleExpandEvent"
-  />
+  <GTable :headers="headers" :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -33,69 +33,231 @@ import { GTable } from 'goar-components';
 import type { GTableHeader } from 'goar-components';
 
 const headers = ref<GTableHeader[]>([
-  { title: 'Name', field: 'name' }, 
-  { title: 'Email', field: 'email' }, // [!code highlight]
-  { title: 'Select', type: 'checkbox', field: 'id' }
+  { title: 'ID', field: 'id' },
+  { title: 'Name', field: 'name' },
 ]);
 
 const items = ref([
-  { id: 1, name: 'John Doe', email: 'john@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' },
 ]);
-
-const handleCheckEvent = (payload: any) => {
-  console.log('Checkbox changed:', payload.item, payload.status);
-};
-
-const handleExpandEvent = (payload: any) => {
-  console.log('Row expanded:', payload.index, payload.expanded);
-};
 </script>
 ```
 
+In this example:
+
+- **Headers**: Define the columns of the table using the `headers` prop. Each header has a `title` (displayed in the table header) and a `field` (the key to access the corresponding value in the data items).
+
+- **Items**: Provide the data to display in the table using the `items` prop. Each item is an object with keys corresponding to the `field` values in the headers.
+
+For more comprehensive examples, please refer to the examples page.
+
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `classes` | string | '' | CSS classes for the table |
-| `bodyClasses` | string | '' | CSS classes for the table body |
-| `headClasses` | string | '' | CSS classes for the table header |
-| `headers` | GTableHeader[] | [] | Array of header objects |
-| `items` | any[] | [] | Array of data items |
-| `keyField` | string | '' | Unique identifier field for items |
-| `checkEvent` | string | '' | Event name for checkbox changes |
-| `expandEvent` | string | '' | Event name for row expansion |
-| `pagination` | boolean | true | Enable pagination |
-| `currentPage` | number | 1 | Current page number |
-| `itemsPerPage` | number | 10 | Number of items per page |
-| `maxPageLinks` | number | 5 | Maximum number of page links to show |
-| `showPageFirstLast` | boolean | false | Show first/last page buttons |
-| `showPageIcons` | boolean | false | Use icons for pagination buttons |
-| `paginationAlignment` | string | 'justify-content-end' | CSS class for pagination alignment |
-| `paginationSize` | string | '' | CSS class for pagination size |
+The **GTable** component accepts the following props:
+
+| Prop                  | Type                           | Default                  | Description                                                                                                                                                 |
+| --------------------- | ------------------------------ | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `headers`             | `GTableHeader[]`               | `[]`                     | An array of header objects defining the table columns.                                                                                                      |
+| `items`               | `GTableItem[]`                 | `[]`                     | An array of data objects to display in the table.                                                                                                           |
+| `classes`             | `string`                       | `''`                     | Additional CSS classes for the `<table>` element.                                                                                                           |
+| `bodyClasses`         | `string`                       | `''`                     | CSS classes for the `<tbody>` element.                                                                                                                      |
+| `headClasses`         | `string`                       | `''`                     | CSS classes for the `<thead>` element.                                                                                                                      |
+| `keyField`            | `string`                       | `''`                     | The unique key field in your data items. If not specified, the index of the item in the array is used as the key.                                           |
+| `checkEvent`          | `string`                       | `''`                     | Name of the event to emit when a checkbox is toggled.                                                                                                       |
+| `expandEvent`         | `string`                       | `''`                     | Name of the event to emit when an expandable row is toggled.                                                                                                |
+| `showLoading`         | `boolean`                      | `false`                  | If `true` and `loading` is `true`, shows a loading indicator when data is being fetched.                                                                    |
+| `loading`             | `boolean`                      | `false`                  | Indicates if data is currently loading.                                                                                                                     |
+| `showEmpty`           | `boolean`                      | `true`                   | Show a message when there are no data items to display.                                                                                                     |
+| `pagination`          | `boolean`                      | `true`                   | Enable or disable pagination.                                                                                                                               |
+| `currentPage`         | `number`                       | `1`                      | The current active page number.                                                                                                                             |
+| `itemsPerPage`        | `number`                       | `10`                     | Number of items to display per page when pagination is enabled.                                                                                             |
+| `maxPageLinks`        | `number`                       | `5`                      | Maximum number of pagination links to display.                                                                                                              |
+| `showPageFirstLast`   | `boolean`                      | `false`                  | Show 'First' and 'Last' pagination buttons.                                                                                                                 |
+| `showPageIcons`       | `boolean`                      | `false`                  | Use icons instead of text for pagination controls.                                                                                                          |
+| `pageStringFirst`     | `string`                       | `'First'`                | Text for the 'First' page button.                                                                                                                           |
+| `pageStringLast`      | `string`                       | `'Last'`                 | Text for the 'Last' page button.                                                                                                                            |
+| `pageStringPrev`      | `string`                       | `'Previous'`             | Text for the 'Previous' page button.                                                                                                                        |
+| `pageStringNext`      | `string`                       | `'Next'`                 | Text for the 'Next' page button.                                                                                                                            |
+| `paginationAlignment` | `string`                       | `'justify-content-end'`  | CSS classes to align pagination controls.                                                                                                                   |
+| `paginationSize`      | `string`                       | `''`                     | Size of pagination controls (`'pagination-lg'` or `'pagination-sm'`).                                                                                       |
+
+### Prop Descriptions
+
+- **`headers`**: An array of `GTableHeader` objects defining the table columns.
+
+- **`items`**: An array of `GTableItem` objects representing the data to display in the table.
+
+- **`classes`**: Additional CSS classes to apply to the `<table>` element.
+
+- **`bodyClasses`**: CSS classes to apply to the `<tbody>` element.
+
+- **`headClasses`**: CSS classes to apply to the `<thead>` element.
+
+- **`keyField`**: Specifies the field in your data items that should be used as a unique key. If not provided, the index of the item in the array is used as the key.
+
+- **`checkEvent`**: The name of the event to emit when a checkbox in the table is toggled.
+
+- **`expandEvent`**: The name of the event to emit when an expandable row is toggled.
+
+- **`showLoading`**: If set to `true` and `loading` is `true`, a loading indicator is shown when data is being fetched.
+
+- **`loading`**: Indicates whether data is currently being loaded.
+
+- **`showEmpty`**: If `true`, displays a message when there are no data items to show.
+
+- **`pagination`**: Enables or disables pagination. When `true`, pagination controls are displayed.
+
+- **`currentPage`**: The current page number when pagination is enabled.
+
+- **`itemsPerPage`**: The number of items to display per page when pagination is enabled.
+
+- **`maxPageLinks`**: The maximum number of pagination links to display.
+
+- **`showPageFirstLast`**: If `true`, 'First' and 'Last' buttons are shown in the pagination controls.
+
+- **`showPageIcons`**: If `true`, uses icons instead of text for pagination controls.
+
+- **`pageStringFirst`**, **`pageStringLast`**, **`pageStringPrev`**, **`pageStringNext`**: Custom text for pagination buttons.
+
+- **`paginationAlignment`**: CSS classes to align the pagination controls.
+
+- **`paginationSize`**: Size of the pagination controls. Accepts Bootstrap pagination size classes like `'pagination-lg'` or `'pagination-sm'`.
 
 ## Slots
 
-- Dynamic slots for each column, named after the `field` property in the header object
-- `expandable` slot for custom expandable row content
+The **GTable** component provides slots for customizing the rendering of table cells and messages.
+
+### Custom Cell Content Slots
+
+You can customize the content of table cells by using named slots. To use this feature:
+
+1. **Specify the slot name in the header definition**: In your `headers` array, set the `field` property to correspond with the slot name you want to use for that column.
+
+2. **Define the slot in your template**: Use the `<template>` tag with the `#` syntax followed by the slot name. The slot provides access to the data for the current row.
+
+For detailed examples on how to use custom cell content slots, please refer to the examples page.
+
+### `tmplLoading` Slot
+
+Customize the loading template displayed when `loading` is `true` and `showLoading` is `true`.
+
+```vue
+<template #tmplLoading>
+  <!-- Custom loading indicator -->
+  <div>Loading data, please wait...</div>
+</template>
+```
+
+### `tmplEmpty` Slot
+
+Customize the empty data message displayed when there are no items and `showEmpty` is `true`.
+
+```vue
+<template #tmplEmpty>
+  <!-- Custom empty data message -->
+  <div>No records found.</div>
+</template>
+```
 
 ## Events
 
-- `checkEvent`: Emitted when a checkbox is clicked. The event payload includes the item and its new status.
-- `expandEvent`: Emitted when a row is expanded or collapsed. The event payload includes the row index and its expanded status.
+The **GTable** component can emit events to notify your application about user interactions. These events are optional and only emitted when you provide the corresponding prop with the event name.
 
-## Types
+### Checkbox Event
 
-The component exports the following TypeScript type:
+Emitted when a checkbox is toggled (if you have checkboxes in your table).
+
+- **Prop to specify**: `checkEvent`
+- **Event payload**:
+
+  ```typescript
+  {
+    item: GTableItem,
+    status: boolean,
+  }
+  ```
+
+### Expand Event
+
+Emitted when an expandable row is toggled (if you have expandable rows in your table).
+
+- **Prop to specify**: `expandEvent`
+- **Event payload**:
+
+  ```typescript
+  {
+    index: number,
+    expanded: boolean,
+    item: GTableItem,
+  }
+  ```
+
+For examples on how to handle these events, please refer to the examples page.
+
+## Interfaces
+
+### GTableHeader
+
+Defines the structure of the table headers.
 
 ```typescript
 export interface GTableHeader {
-  title: string;
+  title?: string;
   field: string;
-  type?: string; // optional, could be "checkbox" or "expandable"
-  checkboxStyle?: string; // optional, use "switch" for Bootstrap toggle switch style
-  checkboxHeader?: boolean; // optional, set to false when checkbox type is set and the toggle all checkbox in header should not be displayed
-  isChecked?: (arg: any) => boolean; // callback function to get the checked status if item is a checkbox
-  render?: (arg: any) => string; // callback function to get the content to be rendered of the item
+  type?: string; // Optional, e.g., 'checkbox' or 'expandable'
+  checkboxStyle?: string; // Optional, e.g., 'switch' for toggle switch style
+  checkboxHeader?: boolean; // Optional, set to false to hide the checkbox in the header
+  isChecked?: (arg: any) => boolean; // Callback function to determine if a row is checked
+  render?: (arg: any) => string; // Callback function to render custom content
 }
 ```
+
+- **Notes**:
+  - The `title` property is optional if you are using a `type` like `'checkbox'` where a header title might not be necessary.
+  - The `field` property is used to match the data in your `items` or to correspond with a named slot.
+
+### GTableItem
+
+Represents a data item in the table.
+
+```typescript
+export interface GTableItem {
+  [key: string]: any;
+}
+```
+
+## Notes
+
+- **Bootstrap and Icons**: Ensure that you include Bootstrap and Bootstrap Icons in your project to enable proper styling and icons. These are external dependencies of `goar-components`.
+
+- **Unique Identifiers**:
+  - If your data items have a unique identifier field, you can set the `keyField` prop to that field name.
+  - If `keyField` is not specified or is an empty string, the component uses the index of the item in the array as the key.
+
+  ```vue
+  <GTable :headers="headers" :items="items" keyField="uniqueId" />
+  ```
+
+- **Customizing Appearance**: Use the `classes`, `bodyClasses`, and `headClasses` props to add custom CSS classes to the table elements for styling purposes.
+
+  Example:
+
+  ```vue
+  <GTable
+    :headers="headers"
+    :items="items"
+    classes="table-striped"
+    bodyClasses="align-middle"
+    headClasses="table-dark"
+  />
+  ```
+
+- **Pagination**: By default, pagination is enabled. If you want to display all items without pagination, set the `pagination` prop to `false`.
+
+  ```vue
+  <GTable :headers="headers" :items="items" :pagination="false" />
+  ```
+
+- **Further Examples**: For more advanced usage examples, including how to implement checkboxes, expandable rows, and custom cell rendering, please refer to the examples page.
+
