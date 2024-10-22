@@ -195,27 +195,107 @@ Emitted when an expandable row is toggled (if you have expandable rows in your t
 
 For examples on how to handle these events, please refer to the examples page.
 
+
+### Exposed Methods
+
+The **GTable** component exposes two methods that can be called from the parent component to programmatically expand or collapse all rows:
+
+- **`expandAll()`**: Expands all expandable rows in the table.
+- **`collapseAll()`**: Collapses all expandable rows in the table.
+
+These methods are made available through `defineExpose` and can be accessed via a component reference.
+
+**Usage:**
+
+To utilize these methods, you need to add a `ref` to your GTable component instance and then call the methods as needed.
+
+```vue
+<template>
+  <GTable ref="gtable" :headers="headers" :items="items" />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const gtable = ref(null);
+
+// To expand all rows
+gtable.value.expandAll();
+
+// To collapse all rows
+gtable.value.collapseAll();
+</script>
+```
+
+### Notes
+
+- **Optional Feature**: The `expandableAll` property in the `GTableHEader` interface is optional. If you don't need the expand/collapse all functionality, you can omit this property or set it to `false`.
+- **Backward Compatibility**: This feature is introduced in version 0.3, but is backward compatible and does not affect existing implementations.
+- **Programmatic Control**: Even if you don't use the `expandableAll` button in the header, you can still control the expansion and collapse of all rows programmatically using the exposed `expandAll()` and `collapseAll()` methods.
+
+
+
 ## Interfaces
 
 ### GTableHeader
 
-Defines the structure of the table headers.
+The `GTableHeader` interface defines the structure of the header configuration objects used in the **GTable** component. Below is the complete list of properties, along with their types, default values, and descriptions:
 
 ```typescript
 export interface GTableHeader {
-  title?: string;
+  title: string;
   field: string;
-  type?: string; // Optional, e.g., 'checkbox' or 'expandable'
-  checkboxStyle?: string; // Optional, e.g., 'switch' for toggle switch style
-  checkboxHeader?: boolean; // Optional, set to false to hide the checkbox in the header
-  isChecked?: (arg: any) => boolean; // Callback function to determine if a row is checked
-  render?: (arg: any) => string; // Callback function to render custom content
+  type?: string; // Optional, could be 'checkbox' or 'expandable'
+  expandableAll?: boolean; // Optional, default is false. If 'type' is 'expandable' and 'expandableAll' is true, a button to expand/collapse all rows is shown in the header.
+  checkboxStyle?: string; // Optional, use 'switch' for Bootstrap toggle switch style
+  checkboxHeader?: boolean; // Optional, default is true. Set to false to hide the toggle all checkbox in the header when 'type' is 'checkbox'.
+  isChecked?: (item: any) => boolean; // Optional callback function to determine the checked status of a row when using checkboxes.
+  render?: (item: any) => string; // Optional callback function to customize the rendering of the cell content.
 }
 ```
 
-- **Notes**:
-  - The `title` property is optional if you are using a `type` like `'checkbox'` where a header title might not be necessary.
-  - The `field` property is used to match the data in your `items` or to correspond with a named slot.
+#### Properties
+
+- **`title`** (`string`):
+  - **Required**: Yes
+  - **Description**: The display title of the column, shown in the table header.
+
+- **`field`** (`string`):
+  - **Required**: Yes
+  - **Description**: The key used to access the corresponding value in the data items. It can also correspond to a named slot for custom rendering.
+
+- **`type`** (`string`):
+  - **Optional**: Yes
+  - **Default**: `undefined`
+  - **Description**: Specifies the type of the column. Supported values:
+    - `'checkbox'`: Renders a checkbox in the column.
+    - `'expandable'`: Renders an expandable/collapsible icon in the column.
+
+- **`expandableAll`** (`boolean`):
+  - **Optional**: Yes
+  - **Default**: `false`
+  - **Description**: When `type` is `'expandable'`, setting `expandableAll` to `true` adds a button in the header to expand or collapse all rows simultaneously.
+
+- **`checkboxStyle`** (`string`):
+  - **Optional**: Yes
+  - **Default**: `undefined`
+  - **Description**: Specifies the style of the checkbox when `type` is `'checkbox'`. Use `'switch'` for Bootstrap toggle switch style.
+
+- **`checkboxHeader`** (`boolean`):
+  - **Optional**: Yes
+  - **Default**: `true`
+  - **Description**: When `type` is `'checkbox'`, setting `checkboxHeader` to `false` hides the "select all" checkbox in the header.
+
+- **`isChecked`** (`(item: any) => boolean`):
+  - **Optional**: Yes
+  - **Description**: A callback function used to determine if a row's checkbox should be checked. This is useful when you need custom logic to define the checked state of each row.
+
+- **`render`** (`(item: any) => string`):
+  - **Optional**: Yes
+  - **Description**: A callback function that returns a string to customize the content rendered in the cell. This allows for dynamic and customized cell content without using slots.
+
+
+
 
 ### GTableItem
 

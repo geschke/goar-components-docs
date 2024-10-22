@@ -15,7 +15,7 @@
       <p>Selected Value: {{ selectedValue }}</p>
 
     </div>
-    <div col="12">
+    <div class="col-12">
       <p>
         <button class="btn btn-primary" @click="addOptions">Add Option Values</button>
       </p>

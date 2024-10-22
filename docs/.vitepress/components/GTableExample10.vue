@@ -1,13 +1,13 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <GTable :headers="headers" :items="items" :pagination="true" :items-per-page="5"
+      <GTable ref="gtable10" :headers="headers" :items="items" :pagination="true" :items-per-page="5"
         classes="table-striped table-hover">
 
         <template #tmplExpandSomething="data">
           <div class="card card-body"><!-- {{  data.value }} -->
-            <p>Got index of table row and item data of expanded row in slot props: {{ data }}. <br />So it's possible to
-              display some additional information in a larger place, for example:
+            <p>Got index of table row and item data of expanded row in slot props: {{ data }}. <br />
+              So it's possible to display some additional information in a larger place, for example:
             </p>
             <p>Favorite car brand: {{ data.item.car }}
 
@@ -18,6 +18,12 @@
       </GTable>
 
     </div>
+    <div class="col-12">
+      <p class="m-3">
+        <button class="btn btn-warning" @click="collapseTest">Collapse All</button>&nbsp;
+        <button class="btn btn-warning" @click="expandTest">Expand All</button>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -26,13 +32,14 @@ import { ref } from 'vue';
 import { GTable } from 'goar-components';
 import type { GTableHeader } from 'goar-components';
 
+const gtable10: any = ref(null);
+
 const headers = ref<GTableHeader[]>([
-  { title: 'More Info', field: 'tmplExpandSomething', type: 'expandable' },
+  { title: 'More Info', field: 'tmplExpandSomething', type: 'expandable', expandableAll: true },
   { title: "ID", field: "id" },
   { title: 'Name', field: 'name' },
   { title: 'Email', field: 'email' }
 ]);
-
 
 const items = ref([
   { id: 1, name: 'John Doe', email: 'john@example.com', car: 'Mercedes' },
@@ -48,5 +55,14 @@ const items = ref([
   { id: 11, name: 'Alice Doe', email: 'alice@example.com', car: 'Renault' },
   { id: 12, name: 'Steve Smith', email: 'steve@example.com', car: 'Volvo' }
 ]);
+
+
+function collapseTest() {
+  gtable10.value.collapseAll();
+}
+
+function expandTest() {
+  gtable10.value.expandAll();
+}
 
 </script>

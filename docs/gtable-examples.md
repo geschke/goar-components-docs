@@ -94,6 +94,15 @@ Every time the state of a checkbox changes, an event is triggered and passed to 
 <<< @/.vitepress/components/GTableExample09.vue{7,56-60}
 
 
+## Expand table with integrated expand/collapse button in header or by function call from the parent component
+
+<GTableExample10/>
+
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample10.vue{4,35,38,61,65}
+
 
 
 <!-- <ExampleGToast /> -->
@@ -149,6 +158,10 @@ const GTableExample08 = defineClientComponent(() => {
 
 const GTableExample09 = defineClientComponent(() => {
   return import('./.vitepress/components/GTableExample09.vue')
+})
+
+const GTableExample10 = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample10.vue')
 })
 
 

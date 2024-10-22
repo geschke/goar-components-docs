@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div col="12">
+    <div class="col-12">
       <GTable :headers="headers" :items="items" :pagination="true" 
         :items-per-page="5" 
         :showLoading="true"

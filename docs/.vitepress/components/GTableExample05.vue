@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div col="12">
+    <div class="col-12">
 
       <h4 class="h4">Default style</h4>
       <div>

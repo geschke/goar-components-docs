@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div col="12">
+    <div class="col-12">
 
       <GTable :headers="headers" :items="items" :pagination="false" :items-per-page="5"
         classes="table-striped table-hover" 
@@ -16,7 +16,7 @@
       </GTable>
     </div>
 
-    <div col="12">
+    <div class="col-12">
       <p class="h5">
         Data of current expand event which is fired when expand or collapse row
       </p>
