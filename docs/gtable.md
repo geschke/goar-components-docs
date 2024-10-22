@@ -196,7 +196,7 @@ Emitted when an expandable row is toggled (if you have expandable rows in your t
 For examples on how to handle these events, please refer to the examples page.
 
 
-### Exposed Methods
+## Exposed Methods
 
 The **GTable** component exposes two methods that can be called from the parent component to programmatically expand or collapse all rows:
 
