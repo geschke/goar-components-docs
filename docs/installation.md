@@ -1,155 +1,85 @@
 # Installation
 
-## Table of Contents
+`goar-components` is a Vue 3 component library built on top of Bootstrap 5.
 
-- [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Step 1: Install goar-components](#step-1-install-goar-components)
-  - [Optional: Install Bootstrap and Bootstrap Icons](#optional-install-bootstrap-and-bootstrap-icons)
-  - [Step 2: Setup in Your Vue Project](#step-2-setup-in-your-vue-project)
-- [Notes](#notes)
+It does **not bundle its dependencies**. The host application must provide Vue, Pinia, Bootstrap, and Bootstrap Icons.
 
-## Installation
 
-To use `goar-components` in your Vue.js project, follow these step-by-step instructions.
 
-### Prerequisites
+## Requirements
 
-- **Vue.js**: Ensure you have a Vue.js project set up (preferably Vue 3).
-- **Node.js and npm**: Make sure you have Node.js and npm installed.
+* Vue 3
+* Pinia
+* Bootstrap 5
+* Bootstrap Icons
+* Node.js (recommended ≥ 18)
 
-### Step 1: Install goar-components
 
-Install `goar-components` via npm:
+
+## Install
+
+Install the library together with its peer dependencies:
 
 ```bash
-npm install goar-components
+npm install goar-components vue pinia bootstrap bootstrap-icons @popperjs/core
 ```
 
-### Optional: Install Bootstrap and Bootstrap Icons
+If your project already includes some of these dependencies, you can omit them.
 
-**Note:** `goar-components` relies on Bootstrap and Bootstrap Icons for styling and icons. If these are not already installed in your project, proceed with the following steps. If you have them installed, you can skip to [Step 2](#step-2-setup-in-your-vue-project).
 
-#### Install Bootstrap
 
-```bash
-npm install bootstrap
-```
+## Setup
 
-#### Install Bootstrap Icons
+Register Pinia and `goar-components` in your application entry file (`main.ts` or `main.js`).
 
-```bash
-npm install bootstrap-icons
-```
-
-### Step 2: Setup in Your Vue Project
-
-Now, import and register `goar-components` in your `main.js` or `main.ts` file.
-
-#### Import and Register goar-components
-
-```javascript
-// main.js or main.ts
+```ts
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import App from './App.vue';
 
 import { GoarComponents } from 'goar-components';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 const app = createApp(App);
 
+app.use(createPinia());
 app.use(GoarComponents);
 
 app.mount('#app');
 ```
 
-#### Import Bootstrap and Bootstrap Icons CSS (if installed)
+All components are now globally available in your Vue application.
 
-If you installed Bootstrap and Bootstrap Icons in the optional step above (or if they are not already imported in your project), add the following import statements:
 
-```javascript
-// Import Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Import Bootstrap Icons CSS
-import 'bootstrap-icons/font/bootstrap-icons.css';
+## Using Individual Components (Optional)
+
+You can also import components individually if you prefer not to register the plugin globally.
+
+```ts
+import { GTable } from 'goar-components';
 ```
 
-Place these imports at the top of your `main.js` or `main.ts` file, before your own global styles, so you can override Bootstrap styles if needed.
 
-#### Complete Example of main.js/main.ts
-
-Your `main.js` or `main.ts` file might look like this:
-
-```javascript
-import { createApp } from 'vue';
-import App from './App.vue';
-
-import { GoarComponents } from 'goar-components';
-
-// Optional: Import Bootstrap and Bootstrap Icons CSS if not already included
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-
-// Import your global styles after Bootstrap CSS
-import './assets/main.css';
-
-const app = createApp(App);
-
-
-// Register goar-components
-app.use(GoarComponents);
-
-app.mount('#app');
-```
-
-**Explanation:**
-
-- **Import and Register goar-components:**
-
-  ```javascript
-  import { GoarComponents } from 'goar-components';
-
-  app.use(GoarComponents);
-  ```
-
-  This registers all components from `goar-components` globally in your Vue application.
-
-- **Import Bootstrap and Bootstrap Icons CSS:**
-
-  ```javascript
-  import 'bootstrap/dist/css/bootstrap.min.css';
-  import 'bootstrap-icons/font/bootstrap-icons.css';
-  ```
-
-  This ensures that Bootstrap styles and icons are available throughout your application.
-
-- **Import Your Global Styles:**
-
-  Place your own global CSS imports after Bootstrap's CSS to allow your styles to override Bootstrap defaults if needed.
 
 ## Notes
 
-- **Bootstrap and Bootstrap Icons Dependencies:**
+### Dependency Handling
 
-  - `goar-components` depends on Bootstrap and Bootstrap Icons for styling and icons.
-  - If your project already includes Bootstrap and Bootstrap Icons, you can skip the optional installation step and the import statements for their CSS files.
+`goar-components` expects its peer dependencies to be installed by the host application.
 
-- **Version Compatibility:**
+This approach avoids duplicate framework instances and ensures compatibility with your existing project setup.
 
-  - Ensure that the versions of Bootstrap and Bootstrap Icons in your project are compatible with `goar-components`.
-  - It's recommended to use the latest stable versions unless specified otherwise.
+### Bootstrap JavaScript (Optional)
 
-- **Including Bootstrap JavaScript (Optional):**
+If you use Bootstrap components that require JavaScript (for example modals or tooltips), include the Bootstrap bundle:
 
-  - If you plan to use Bootstrap's JavaScript components (like modals, tooltips, etc.), you may need to include Bootstrap's JavaScript bundle:
+```ts
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+```
 
-    ```javascript
-    // Import Bootstrap's JavaScript bundle if needed
-    import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-    ```
+### Customizing Bootstrap
 
-    Include this in your `main.js` or `main.ts` if required.
-
-- **Customizing Bootstrap:**
-
-  - If you need to customize Bootstrap's default styles, consider importing Bootstrap's Sass source files and overriding variables before compiling. This allows you to tailor Bootstrap to your project's needs.
+If you need to customize Bootstrap styles, consider importing Bootstrap’s Sass sources and overriding variables before compilation. This allows you to tailor Bootstrap to your project requirements.
