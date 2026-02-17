@@ -2,8 +2,8 @@
 
 `goar-components` is a Vue 3 component library built on top of Bootstrap 5.
 
-It does **not bundle its dependencies**. The host application must provide Vue, Pinia, Bootstrap, and Bootstrap Icons.
-
+It does **not bundle Vue, Pinia, or Bootstrap**.
+The host application must provide and initialize these dependencies.
 
 
 ## Requirements
@@ -52,6 +52,9 @@ app.mount('#app');
 
 All components are now globally available in your Vue application.
 
+The library imports Bootstrap as a peer dependency and does not bundle it.
+This ensures that the consuming application controls the Bootstrap version and avoids duplicate Bootstrap runtimes.
+
 
 
 ## Using Individual Components (Optional)
@@ -72,14 +75,39 @@ import { GTable } from 'goar-components';
 
 This approach avoids duplicate framework instances and ensures compatibility with your existing project setup.
 
-### Bootstrap JavaScript (Optional)
+### Bootstrap JavaScript (Required for interactive components)
 
-If you use Bootstrap components that require JavaScript (for example modals or tooltips), include the Bootstrap bundle:
+`goar-components` relies on Bootstrap’s JavaScript for interactive components such as Toasts.
+
+You must load Bootstrap’s JavaScript **once** in your application (recommended in `main.ts`):
 
 ```ts
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 ```
 
+Bootstrap must only be initialized once in the host application to avoid duplicate runtime instances.
+
+
 ### Customizing Bootstrap
 
 If you need to customize Bootstrap styles, consider importing Bootstrap’s Sass sources and overriding variables before compilation. This allows you to tailor Bootstrap to your project requirements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
