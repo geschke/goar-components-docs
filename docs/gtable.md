@@ -9,6 +9,7 @@ The **GTable** component is part of the `goar-components` library. It is a custo
 - [Props](#props)
 - [Slots](#slots)
 - [Events](#events)
+- [Server-side Pagination](#server-side-pagination)
 - [Interfaces](#interfaces)
   - [GTableHeader](#gtableheader)
   - [GTableItem](#gtableitem)
@@ -66,6 +67,7 @@ The **GTable** component accepts the following props:
 | `keyField`            | `string`                       | `''`                     | The unique key field in your data items. If not specified, the index of the item in the array is used as the key.                                           |
 | `checkEvent`          | `string`                       | `''`                     | Name of the event to emit when a checkbox is toggled.                                                                                                       |
 | `expandEvent`         | `string`                       | `''`                     | Name of the event to emit when an expandable row is toggled.                                                                                                |
+| `count`               | `number`                       | `0`                      | Total number of items on the server. If set to a value greater than `0`, server-side pagination mode is activated. See [Server-side Pagination](#server-side-pagination). |
 | `showLoading`         | `boolean`                      | `false`                  | If `true` and `loading` is `true`, shows a loading indicator when data is being fetched.                                                                    |
 | `loading`             | `boolean`                      | `false`                  | Indicates if data is currently loading.                                                                                                                     |
 | `showEmpty`           | `boolean`                      | `true`                   | Show a message when there are no data items to display.                                                                                                     |
@@ -99,6 +101,8 @@ The **GTable** component accepts the following props:
 - **`checkEvent`**: The name of the event to emit when a checkbox in the table is toggled.
 
 - **`expandEvent`**: The name of the event to emit when an expandable row is toggled.
+
+- **`count`**: The total number of items available on the server. Setting this to a value greater than `0` activates server-side pagination mode. In this mode, `items` is expected to contain only the current page's data slice, and GTable uses `count` to calculate the total number of pages. See [Server-side Pagination](#server-side-pagination) for details.
 
 - **`showLoading`**: If set to `true` and `loading` is `true`, a loading indicator is shown when data is being fetched.
 
@@ -193,6 +197,21 @@ Emitted when an expandable row is toggled (if you have expandable rows in your t
   }
   ```
 
+### Page Change Event (`pageChange`)
+
+Emitted when the user navigates to a different page. This event is only emitted in **server-side pagination mode**, i.e. when the `count` prop is set to a value greater than `0`.
+
+- **Event name**: `pageChange` (fixed)
+- **Event payload**:
+
+  ```typescript
+  {
+    page: number,    // the requested page number (1-based)
+    offset: number,  // the start index for the server query: (page - 1) * itemsPerPage
+    limit: number,   // the number of items to fetch: itemsPerPage
+  }
+  ```
+
 For examples on how to handle these events, please refer to the examples page.
 
 
@@ -234,6 +253,85 @@ gtable.value.collapseAll();
 - **Programmatic Control**: Even if you don't use the `expandableAll` button in the header, you can still control the expansion and collapse of all rows programmatically using the exposed `expandAll()` and `collapseAll()` methods.
 
 
+
+## Server-side Pagination
+
+By default, **GTable** operates in **client-side pagination mode**: all data items are passed via the `items` prop and GTable slices the array internally to display the correct page.
+
+For large datasets it is more efficient to load only one page at a time from the server. Setting the `count` prop to the total number of records (as returned by the server) activates **server-side pagination mode**:
+
+- `items` must contain only the data for the **current page** — GTable renders all passed items without any internal slicing.
+- `count` is used to calculate the total number of pages for the pagination controls.
+- Whenever the user navigates to a different page, GTable emits the `pageChange` event with `{ page, offset, limit }`. The parent is responsible for fetching the corresponding data slice and updating `items`.
+
+### Minimal Example
+
+```vue
+<template>
+  <GTable
+    :headers="headers"
+    :items="currentItems"
+    :count="totalCount"
+    :items-per-page="20"
+    :show-loading="true"
+    :loading="isLoading"
+    @pageChange="onPageChange"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { GTable } from 'goar-components';
+import type { GTableHeader } from 'goar-components';
+
+const headers: GTableHeader[] = [
+  { title: 'ID', field: 'id' },
+  { title: 'Name', field: 'name' },
+];
+
+const currentItems = ref([]);
+const totalCount = ref(0);
+const isLoading = ref(false);
+
+async function loadPage(offset: number, limit: number) {
+  isLoading.value = true;
+  const response = await fetch(`/api/items?offset=${offset}&limit=${limit}`);
+  const data = await response.json();
+  currentItems.value = data.items;
+  totalCount.value = data.total;
+  isLoading.value = false;
+}
+
+function onPageChange({ page, offset, limit }: { page: number, offset: number, limit: number }) {
+  loadPage(offset, limit);
+}
+
+onMounted(() => loadPage(0, 20));
+</script>
+```
+
+### Resetting to Page 1
+
+When the displayed data changes fundamentally — for example after applying a filter — GTable's internal page counter needs to be reset. The idiomatic Vue way to achieve this without watchers is to change the `:key` attribute on the component, which forces a full re-mount and resets all internal state to its initial values:
+
+```vue
+<GTable
+  :key="tableKey"
+  :headers="headers"
+  :items="currentItems"
+  :count="totalCount"
+  @pageChange="onPageChange"
+/>
+```
+
+```ts
+const tableKey = ref(0);
+
+function applyFilter() {
+  tableKey.value++; // triggers re-mount → page resets to 1
+  loadPage(0, 20);
+}
+```
 
 ## Interfaces
 
@@ -338,6 +436,8 @@ export interface GTableItem {
   ```vue
   <GTable :headers="headers" :items="items" :pagination="false" />
   ```
+
+- **Server-side Pagination**: Client-side and server-side pagination are mutually exclusive. If `count` is greater than `0`, server-side mode is active and GTable does not slice `items` internally. Remove the `count` prop (or set it to `0`) to return to client-side mode.
 
 - **Further Examples**: For more advanced usage examples, including how to implement checkboxes, expandable rows, and custom cell rendering, please refer to the examples page.
 
