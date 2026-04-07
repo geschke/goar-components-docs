@@ -12,6 +12,16 @@
 
 <<< @/.vitepress/components/GTableExample01.vue{4-5,13-20}
 
+## Sortable columns (client-side)
+
+<GTableExample01b/>
+
+Columns with `sortable: true` in the header definition become clickable. A first click sorts ascending, a second click sorts descending, and a third click resets to the original order. The active sort direction is indicated by an icon to the left of the column title. Columns without `sortable` (here: ID) are not affected.
+
+### Code snippet
+
+<<< @/.vitepress/components/GTableExample01b.vue{22-23}
+
 ## Use render function to create cell content
 
 <GTableExample02/>
@@ -126,6 +136,10 @@ import { defineClientComponent } from 'vitepress'
 
 const GTableExample01 = defineClientComponent(() => {
   return import('./.vitepress/components/GTableExample01.vue')
+})
+
+const GTableExample01b = defineClientComponent(() => {
+  return import('./.vitepress/components/GTableExample01b.vue')
 })
 
 const GTableExample02 = defineClientComponent(() => {

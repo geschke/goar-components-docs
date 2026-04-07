@@ -29,7 +29,8 @@
         <ul class="navbar-nav ms-auto">  <!-- Social Links rechts ausrichten -->
           <li class="nav-item" v-for="socialLink in socialLinks" :key="socialLink.link">
             <a class="nav-link" :href="socialLink.link" target="_blank" rel="noopener">
-              <i :class="getBootstrapIconClass(socialLink.icon)" style="font-size: 1.5rem;"></i>
+              <span v-if="isSvgIcon(socialLink.icon)" v-html="socialLink.icon.svg" style="display:inline-block; width:1.5rem; height:1.5rem; vertical-align: -0.3em; fill: currentColor;"></span>
+              <i v-else :class="getBootstrapIconClass(socialLink.icon)" style="font-size: 1.5rem;"></i>
             </a>
           </li>
         </ul>
@@ -49,12 +50,24 @@ const logo = theme.value.logo
 const socialLinks = theme.value.socialLinks
 const route = useRoute()
 
-function getBootstrapIconClass(icon: string) {
+function isSvgIcon(icon: any): boolean {
+  return typeof icon === 'object' && icon !== null && typeof icon.svg === 'string'
+}
+
+function getBootstrapIconClass(icon: any): string {
   switch (icon) {
     case 'github':
-      return 'bi bi-github'  
+      return 'bi bi-github'
     case 'twitter':
-      return 'bi bi-twitter'  
+      return 'bi bi-twitter-x'
+    case 'youtube':
+      return 'bi bi-youtube'
+    case 'linkedin':
+      return 'bi bi-linkedin'
+    case 'discord':
+      return 'bi bi-discord'
+    case 'mastodon':
+      return 'bi bi-mastodon'
     default:
       return ''
   }

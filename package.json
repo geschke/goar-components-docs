@@ -11,7 +11,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "goar-components": "^0.3.0",
+    "goar-components": "^0.3.6",
     "vue": "^3.4.35"
   },
   "overrides": {

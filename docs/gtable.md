@@ -9,6 +9,7 @@ The **GTable** component is part of the `goar-components` library. It is a custo
 - [Props](#props)
 - [Slots](#slots)
 - [Events](#events)
+- [Sorting](#sorting)
 - [Server-side Pagination](#server-side-pagination)
 - [Interfaces](#interfaces)
   - [GTableHeader](#gtableheader)
@@ -212,15 +213,36 @@ Emitted when the user navigates to a different page. This event is only emitted 
   }
   ```
 
+### Sort Change Event (`sortChange`)
+
+Emitted when the user clicks a sortable column header. This event is emitted in **both client-side and server-side pagination mode**.
+
+In client-side mode the table sorts its items internally and you only need to listen to this event if your application requires additional reactions (e.g. persisting the sort state). In server-side mode you **must** handle this event to fetch the correctly sorted page from the server.
+
+- **Event name**: `sortChange` (fixed)
+- **Event payload**:
+
+  ```typescript
+  {
+    field: string,              // the header field being sorted
+    direction: 'asc' | 'desc' | 'none',  // current sort direction; 'none' means no sorting
+  }
+  ```
+
+When `direction` is `'none'`, the column has been cycled back to its unsorted state. The sort cycle per column is: **none → asc → desc → none → …**
+
+Whenever the sort changes, GTable automatically resets the active page to 1.
+
 For examples on how to handle these events, please refer to the examples page.
 
 
 ## Exposed Methods
 
-The **GTable** component exposes two methods that can be called from the parent component to programmatically expand or collapse all rows:
+The **GTable** component exposes the following methods that can be called from the parent component:
 
 - **`expandAll()`**: Expands all expandable rows in the table.
 - **`collapseAll()`**: Collapses all expandable rows in the table.
+- **`resetSort()`**: Resets the active sort state (field and direction) back to the default (no sorting). Useful when the parent applies a filter or replaces `items` completely and wants to ensure the sort indicator is cleared.
 
 These methods are made available through `defineExpose` and can be accessed via a component reference.
 
@@ -243,6 +265,9 @@ gtable.value.expandAll();
 
 // To collapse all rows
 gtable.value.collapseAll();
+
+// To reset the active sort state
+gtable.value.resetSort();
 </script>
 ```
 
@@ -253,6 +278,83 @@ gtable.value.collapseAll();
 - **Programmatic Control**: Even if you don't use the `expandableAll` button in the header, you can still control the expansion and collapse of all rows programmatically using the exposed `expandAll()` and `collapseAll()` methods.
 
 
+
+## Sorting
+
+GTable supports optional column sorting. Sorting is configured per column via the `sortable` property of `GTableHeader` and works in both client-side and server-side pagination mode.
+
+### Enabling sortable columns
+
+Set `sortable: true` on any header whose `field` is set and whose `type` is neither `'checkbox'` nor `'expandable'`. Columns without `sortable` (or with `sortable: false`) behave as before — no sorting, no click interaction.
+
+```typescript
+const headers = ref<GTableHeader[]>([
+  { title: 'ID',    field: 'id' },                         // not sortable
+  { title: 'Name',  field: 'name',  sortable: true },      // sortable
+  { title: 'Email', field: 'email', sortable: true },      // sortable
+]);
+```
+
+### Sort behaviour
+
+- A sortable column header is clickable and shows an icon to the left of the title:
+  - <i class="bi bi-chevron-expand"></i> — no active sort (default)
+  - <i class="bi bi-caret-up-fill"></i> — sorted ascending
+  - <i class="bi bi-caret-down-fill"></i> — sorted descending
+- Each click cycles through: **none → asc → desc → none → …**
+- Only one column can be active at a time. Clicking a different column resets the previous sort.
+- Whenever the sort changes, the active page is automatically reset to **page 1**.
+
+### Client-side sorting
+
+When `count` is `0` (client-side mode), GTable sorts all `items` internally before slicing for the current page. No additional configuration is required.
+
+### Server-side sorting
+
+When `count > 0` (server-side mode), GTable does **not** sort internally. Instead it emits the `sortChange` event so the parent can request the correctly sorted page from the server:
+
+```vue
+<GTable
+  :headers="headers"
+  :items="currentItems"
+  :count="totalCount"
+  @pageChange="onPageChange"
+  @sortChange="onSortChange"
+/>
+```
+
+```typescript
+function onSortChange({ field, direction }: { field: string, direction: 'asc' | 'desc' | 'none' }) {
+  // direction 'none' means no sort — fetch the default order
+  loadPage(0, 20, field, direction);
+}
+```
+
+### Resetting sort state programmatically
+
+When the parent replaces `items` fundamentally (e.g. after applying a filter), the sort indicator may no longer match the incoming data order. Call `resetSort()` on the component reference to clear the active sort field and direction:
+
+```vue
+<GTable ref="gtable" :headers="headers" :items="currentItems" :count="totalCount"
+  @pageChange="onPageChange" @sortChange="onSortChange" />
+```
+
+```ts
+const gtable = ref(null);
+
+function applyFilter() {
+  gtable.value.resetSort(); // clear sort indicator
+  loadPage(0, 20);
+}
+```
+
+In server-side mode you will typically also want to pass `direction: 'none'` to the server at this point, which the `sortChange` event already handles when `resetSort()` triggers it internally — but `resetSort()` does **not** emit `sortChange`, so call your fetch directly after as shown above.
+
+### Notes on sortable columns
+
+- `sortable` is silently ignored when `type` is `'checkbox'` or `'expandable'`, or when `field` is not set (e.g. render-only columns). This is intentional — those column types do not have a meaningful sort key.
+- Sorting is string-based for text values (case-insensitive) and numeric for number values. `null` and `undefined` values sort to the beginning when ascending and to the end when descending.
+- Sortable `<th>` elements receive an `aria-sort` attribute (`none`, `ascending`, or `descending`) automatically, which is required for screen reader accessibility.
 
 ## Server-side Pagination
 
@@ -349,6 +451,7 @@ export interface GTableHeader {
   checkboxHeader?: boolean; // Optional, default is true. Set to false to hide the toggle all checkbox in the header when 'type' is 'checkbox'.
   isChecked?: (item: any) => boolean; // Optional callback function to determine the checked status of a row when using checkboxes.
   render?: (item: any) => string; // Optional callback function to customize the rendering of the cell content.
+  sortable?: boolean; // Optional, default false. If true and field is set (and type is not 'checkbox'/'expandable'), the column header becomes clickable for sorting.
 }
 ```
 
@@ -391,6 +494,11 @@ export interface GTableHeader {
 - **`render`** (`(item: any) => string`):
   - **Optional**: Yes
   - **Description**: A callback function that returns a string to customize the content rendered in the cell. This allows for dynamic and customized cell content without using slots.
+
+- **`sortable`** (`boolean`):
+  - **Optional**: Yes
+  - **Default**: `false`
+  - **Description**: When `true`, the column header becomes clickable and enables sorting for this column. Requires `field` to be set. Has no effect when `type` is `'checkbox'` or `'expandable'`. See [Sorting](#sorting) for details.
 
 
 
