@@ -84,6 +84,8 @@ The **GTable** component accepts the following props:
 | `pageStringNext`      | `string`                       | `'Next'`                 | Text for the 'Next' page button.                                                                                                                            |
 | `paginationAlignment` | `string`                       | `'justify-content-end'`  | CSS classes to align pagination controls.                                                                                                                   |
 | `paginationSize`      | `string`                       | `''`                     | Size of pagination controls (`'pagination-lg'` or `'pagination-sm'`).                                                                                       |
+| `sortField`           | `string`                       | `undefined`              | Optional controlled active sort field. Use together with `sortDirection` when the parent owns the sort state.                                               |
+| `sortDirection`       | `'asc' \| 'desc' \| 'none'`    | `undefined`              | Optional controlled active sort direction. Use together with `sortField` for server-side sorting or restored table state.                                  |
 
 ### Prop Descriptions
 
@@ -128,6 +130,8 @@ The **GTable** component accepts the following props:
 - **`paginationAlignment`**: CSS classes to align the pagination controls.
 
 - **`paginationSize`**: Size of the pagination controls. Accepts Bootstrap pagination size classes like `'pagination-lg'` or `'pagination-sm'`.
+
+- **`sortField`** and **`sortDirection`**: Optional controlled sort state. When these props are passed, GTable renders the active sort indicator from the props instead of its internal state. This is useful for server-side sorting or restoring a saved table state. Pass both props together for predictable behaviour.
 
 ## Slots
 
@@ -219,6 +223,8 @@ Emitted when the user clicks a sortable column header. This event is emitted in 
 
 In client-side mode the table sorts its items internally and you only need to listen to this event if your application requires additional reactions (e.g. persisting the sort state). In server-side mode you **must** handle this event to fetch the correctly sorted page from the server.
 
+When `sortField` and `sortDirection` are used, the parent owns the active sort state. In that controlled mode, handle `sortChange` by updating those props; otherwise the table will emit the requested next state but keep rendering the old prop values.
+
 - **Event name**: `sortChange` (fixed)
 - **Event payload**:
 
@@ -242,7 +248,7 @@ The **GTable** component exposes the following methods that can be called from t
 
 - **`expandAll()`**: Expands all expandable rows in the table.
 - **`collapseAll()`**: Collapses all expandable rows in the table.
-- **`resetSort()`**: Resets the active sort state (field and direction) back to the default (no sorting). Useful when the parent applies a filter or replaces `items` completely and wants to ensure the sort indicator is cleared.
+- **`resetSort()`**: Resets the internal active sort state (field and direction) back to the default (no sorting). In controlled sort mode, reset the parent-owned `sortField` and `sortDirection` props instead.
 
 These methods are made available through `defineExpose` and can be accessed via a component reference.
 
@@ -330,9 +336,42 @@ function onSortChange({ field, direction }: { field: string, direction: 'asc' | 
 }
 ```
 
+### Controlled sort state
+
+Use `sortField` and `sortDirection` when the active sort state is owned by the parent component. This is the recommended approach for server-side sorting when the table can be opened with a preselected or restored sort state.
+
+```vue
+<GTable
+  :headers="headers"
+  :items="currentItems"
+  :count="totalCount"
+  :sort-field="sortField"
+  :sort-direction="sortDirection"
+  @pageChange="onPageChange"
+  @sortChange="onSortChange"
+/>
+```
+
+```typescript
+type SortDirection = 'asc' | 'desc' | 'none';
+
+const sortField = ref('name');
+const sortDirection = ref<SortDirection>('desc');
+
+function onSortChange({ field, direction }: { field: string, direction: SortDirection }) {
+  sortField.value = field;
+  sortDirection.value = direction;
+  loadPage(0, 20, field, direction);
+}
+```
+
+In controlled mode GTable derives the sort icon and `aria-sort` from the props. It does not copy those props into local state and does not require a watcher.
+
 ### Resetting sort state programmatically
 
-When the parent replaces `items` fundamentally (e.g. after applying a filter), the sort indicator may no longer match the incoming data order. Call `resetSort()` on the component reference to clear the active sort field and direction:
+When the parent replaces `items` fundamentally (e.g. after applying a filter), the sort indicator may no longer match the incoming data order.
+
+In uncontrolled mode, call `resetSort()` on the component reference to clear the active internal sort field and direction:
 
 ```vue
 <GTable ref="gtable" :headers="headers" :items="currentItems" :count="totalCount"
@@ -348,7 +387,17 @@ function applyFilter() {
 }
 ```
 
-In server-side mode you will typically also want to pass `direction: 'none'` to the server at this point, which the `sortChange` event already handles when `resetSort()` triggers it internally — but `resetSort()` does **not** emit `sortChange`, so call your fetch directly after as shown above.
+In controlled mode, reset the parent state instead:
+
+```ts
+function applyFilter() {
+  sortField.value = '';
+  sortDirection.value = 'none';
+  loadPage(0, 20);
+}
+```
+
+`resetSort()` does not emit `sortChange`. If the server query needs to change, call your fetch logic directly after clearing the sort state.
 
 ### Notes on sortable columns
 
@@ -548,4 +597,3 @@ export interface GTableItem {
 - **Server-side Pagination**: Client-side and server-side pagination are mutually exclusive. If `count` is greater than `0`, server-side mode is active and GTable does not slice `items` internally. Remove the `count` prop (or set it to `0`) to return to client-side mode.
 
 - **Further Examples**: For more advanced usage examples, including how to implement checkboxes, expandable rows, and custom cell rendering, please refer to the examples page.
-
